@@ -57,4 +57,22 @@ export const labelsController = (app: Elysia) =>
                     return { success: false, message: 'Server Error', error };
                 }
             })
+            // Update specific screen labels
+            .put('/:screen', async ({ params: { screen }, body, set }) => {
+                try {
+                    const updateData = body as any;
+                    updateData.updatedAt = new Date();
+
+                    let labels = await Labels.findOneAndUpdate(
+                        {},
+                        { [screen]: updateData },
+                        { new: true, upsert: true }
+                    );
+
+                    return { success: true, data: labels };
+                } catch (error) {
+                    set.status = 500;
+                    return { success: false, message: 'Server Error', error };
+                }
+            })
     );
