@@ -68,7 +68,7 @@ export default function ThreadCard({ thread, onLike }: ThreadCardProps) {
                         <div className="flex items-center gap-2 mb-2 flex-wrap">
                             <span className="font-semibold text-white">{thread.author.username}</span>
                             {thread.author.badge && (
-                                <span className="px-2 py-0.5 text-xs font-medium bg-indigo-500/20 text-indigo-400 rounded-md">
+                                <span className="px-2 py-0.5 text-xs font-medium bg-indigo-600 text-white rounded-md">
                                     {thread.author.badge}
                                 </span>
                             )}

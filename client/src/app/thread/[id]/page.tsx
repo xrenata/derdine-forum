@@ -95,7 +95,7 @@ export default async function ThreadPage({ params }: { params: Promise<{ id: str
                                 <div className="flex items-center gap-2">
                                     <span className="font-semibold text-white text-lg">{thread.author.username}</span>
                                     {thread.author.badge && (
-                                        <span className="px-2.5 py-1 text-xs font-medium bg-indigo-500/20 text-indigo-400 rounded-lg">
+                                        <span className="px-2.5 py-1 text-xs font-medium bg-indigo-600 text-white rounded-lg">
                                             {thread.author.badge}
                                         </span>
                                     )}

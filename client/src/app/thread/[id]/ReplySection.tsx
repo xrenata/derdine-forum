@@ -58,7 +58,7 @@ function ReplyCard({ reply }: { reply: Reply }) {
                 <div className="flex items-center gap-2 mb-2">
                     <span className="font-medium text-white">{reply.author.username}</span>
                     {reply.author.badge && (
-                        <span className="px-2 py-0.5 text-xs bg-purple-500/20 text-purple-400 rounded">
+                        <span className="px-2 py-0.5 text-xs font-medium bg-purple-600 text-white rounded">
                             {reply.author.badge}
                         </span>
                     )}

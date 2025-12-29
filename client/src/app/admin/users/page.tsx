@@ -76,7 +76,7 @@ export default function UsersPage() {
                                 <td className="px-5 py-4 text-gray-400 text-sm">{user.email || '-'}</td>
                                 <td className="px-5 py-4">
                                     {user.badge ? (
-                                        <span className="px-2 py-1 text-xs bg-indigo-500/20 text-indigo-400 rounded">
+                                        <span className="px-2 py-1 text-xs font-medium bg-indigo-600 text-white rounded">
                                             {user.badge}
                                         </span>
                                     ) : '-'}
