@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.ui.theme
+package com.example.derdine.ui.theme
 
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme

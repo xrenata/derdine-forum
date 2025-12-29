@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.ui.components
+package com.example.derdine.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.derdinesokayim.data.model.User
+import com.example.derdine.data.model.User
 
 @Composable
 fun UserAvatar(

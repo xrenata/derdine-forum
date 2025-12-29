@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.derdinesokayim"
+    namespace = "com.example.derdine"
     compileSdk = 36
 
     defaultConfig {

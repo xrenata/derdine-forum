@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.api
+package com.example.derdine.api
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import com.example.derdinesokayim.auth.AuthManager
+import com.example.derdine.auth.AuthManager
 
 // UI State classes
 data class ForumUiState(
@@ -113,20 +113,20 @@ class ForumViewModel : ViewModel() {
     }
     
     // Settings State
-    var isDarkMode by mutableStateOf(com.example.derdinesokayim.auth.SettingsManager.isDarkMode)
+    var isDarkMode by mutableStateOf(com.example.derdine.auth.SettingsManager.isDarkMode)
         private set
         
-    var areNotificationsEnabled by mutableStateOf(com.example.derdinesokayim.auth.SettingsManager.areNotificationsEnabled)
+    var areNotificationsEnabled by mutableStateOf(com.example.derdine.auth.SettingsManager.areNotificationsEnabled)
         private set
         
     fun toggleDarkMode() {
         isDarkMode = !isDarkMode
-        com.example.derdinesokayim.auth.SettingsManager.isDarkMode = isDarkMode
+        com.example.derdine.auth.SettingsManager.isDarkMode = isDarkMode
     }
     
     fun toggleNotifications() {
         areNotificationsEnabled = !areNotificationsEnabled
-        com.example.derdinesokayim.auth.SettingsManager.areNotificationsEnabled = areNotificationsEnabled
+        com.example.derdine.auth.SettingsManager.areNotificationsEnabled = areNotificationsEnabled
     }
     
     fun loadTheme() {

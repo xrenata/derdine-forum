@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.ui.screens
+package com.example.derdine.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,9 +19,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.derdinesokayim.api.ForumViewModel
-import com.example.derdinesokayim.auth.AuthManager
-import com.example.derdinesokayim.navigation.Screen
+import com.example.derdine.api.ForumViewModel
+import com.example.derdine.auth.AuthManager
+import com.example.derdine.navigation.Screen
 
 data class SettingItem(
     val icon: ImageVector,

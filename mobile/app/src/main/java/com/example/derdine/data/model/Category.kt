@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.data.model
+package com.example.derdine.data.model
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.ui.theme
+package com.example.derdine.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

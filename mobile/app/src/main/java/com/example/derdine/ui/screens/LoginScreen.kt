@@ -1,7 +1,6 @@
-package com.example.derdinesokayim.ui.screens
+package com.example.derdine.ui.screens
 
 import androidx.compose.animation.*
-import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,10 +22,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.derdinesokayim.api.ForumViewModel
+import com.example.derdine.api.ForumViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.ui.components
+package com.example.derdine.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

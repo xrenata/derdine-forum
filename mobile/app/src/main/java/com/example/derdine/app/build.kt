@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.app
+package com.example.derdine.app
 
 class build {
     private var new = ""

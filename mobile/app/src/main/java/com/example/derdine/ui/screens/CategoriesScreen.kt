@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.ui.screens
+package com.example.derdine.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,8 +18,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.derdinesokayim.api.ForumViewModel
-import com.example.derdinesokayim.ui.components.CategoryCardApi
+import com.example.derdine.api.ForumViewModel
+import com.example.derdine.ui.components.CategoryCardApi
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

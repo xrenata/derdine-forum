@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.ui.screens
+package com.example.derdine.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

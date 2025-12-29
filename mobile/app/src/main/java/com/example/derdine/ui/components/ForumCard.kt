@@ -1,6 +1,5 @@
-package com.example.derdinesokayim.ui.components
+package com.example.derdine.ui.components
 
-import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -19,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.derdinesokayim.data.model.Thread
+import com.example.derdine.data.model.Thread
 import java.text.SimpleDateFormat
 import java.util.*
 

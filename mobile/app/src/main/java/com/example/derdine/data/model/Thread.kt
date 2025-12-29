@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.data.model
+package com.example.derdine.data.model
 
 data class Thread(
     val id: String,

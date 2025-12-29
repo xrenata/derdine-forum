@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.api
+package com.example.derdine.api
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

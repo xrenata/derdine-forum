@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.ui.components
+package com.example.derdine.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.derdinesokayim.data.model.Category
+import com.example.derdine.data.model.Category
 
 @Composable
 fun CategoryChip(

@@ -1,8 +1,8 @@
-package com.example.derdinesokayim.auth
+package com.example.derdine.auth
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.derdinesokayim.api.UserResponse
+import com.example.derdine.api.UserResponse
 import com.google.gson.Gson
 
 object AuthManager {

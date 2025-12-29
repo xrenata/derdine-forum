@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.auth
+package com.example.derdine.auth
 
 import android.content.Context
 import android.content.SharedPreferences

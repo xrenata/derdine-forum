@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.ui.screens
+package com.example.derdine.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,10 +15,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.derdinesokayim.api.ForumViewModel
-import com.example.derdinesokayim.api.ReplyResponse
-import com.example.derdinesokayim.navigation.Screen
-import com.example.derdinesokayim.ui.components.UserAvatarApi
+import com.example.derdine.api.ForumViewModel
+import com.example.derdine.api.ReplyResponse
+import com.example.derdine.navigation.Screen
+import com.example.derdine.ui.components.UserAvatarApi
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -369,7 +369,7 @@ fun ThreadDetailScreen(
 fun ReplyCardApi(
     reply: ReplyResponse,
     onLike: () -> Unit,
-    currentUser: com.example.derdinesokayim.api.UserResponse?
+    currentUser: com.example.derdine.api.UserResponse?
 ) {
     var isLiked by remember(reply.isLiked) { mutableStateOf(reply.isLiked) }
     val context = androidx.compose.ui.platform.LocalContext.current

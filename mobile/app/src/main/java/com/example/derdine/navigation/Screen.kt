@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.navigation
+package com.example.derdine.navigation
 
 sealed class Screen(val route: String) {
     object Login : Screen("login")

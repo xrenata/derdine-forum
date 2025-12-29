@@ -1,4 +1,4 @@
-package com.example.derdinesokayim
+package com.example.derdine
 
 import org.junit.Test
 

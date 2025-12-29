@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.ui.components
+package com.example.derdine.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.derdinesokayim.api.CategoryResponse
+import com.example.derdine.api.CategoryResponse
 
 @Composable
 fun CategoryCardApi(

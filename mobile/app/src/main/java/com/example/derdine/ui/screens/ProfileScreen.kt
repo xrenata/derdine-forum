@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.ui.screens
+package com.example.derdine.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,11 +19,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.derdinesokayim.api.ForumViewModel
-import com.example.derdinesokayim.api.UserResponse
-import com.example.derdinesokayim.ui.components.ForumCardApi
-import com.example.derdinesokayim.ui.components.UserAvatarApi
-import com.example.derdinesokayim.navigation.Screen
+import com.example.derdine.api.ForumViewModel
+import com.example.derdine.ui.components.ForumCardApi
+import com.example.derdine.ui.components.UserAvatarApi
+import com.example.derdine.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

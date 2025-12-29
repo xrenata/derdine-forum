@@ -1,4 +1,4 @@
-package com.example.derdinesokayim.api
+package com.example.derdine.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

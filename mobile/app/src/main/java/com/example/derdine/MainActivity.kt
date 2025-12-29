@@ -1,4 +1,4 @@
-package com.example.derdinesokayim
+package com.example.derdine
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -30,18 +30,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.derdinesokayim.api.ForumViewModel
-import com.example.derdinesokayim.auth.AuthManager
-import com.example.derdinesokayim.navigation.Screen
-import com.example.derdinesokayim.ui.screens.CategoriesScreen
-import com.example.derdinesokayim.ui.screens.CreateThreadScreen
-import com.example.derdinesokayim.ui.screens.HomeScreen
-import com.example.derdinesokayim.ui.screens.LoginScreen
-import com.example.derdinesokayim.ui.screens.ProfileScreen
-import com.example.derdinesokayim.ui.screens.SearchScreen
-import com.example.derdinesokayim.ui.screens.SettingsScreen
-import com.example.derdinesokayim.ui.screens.ThreadDetailScreen
-import com.example.derdinesokayim.ui.theme.ForumTheme
+import com.example.derdine.api.ForumViewModel
+import com.example.derdine.auth.AuthManager
+import com.example.derdine.navigation.Screen
+import com.example.derdine.ui.screens.CategoriesScreen
+import com.example.derdine.ui.screens.CreateThreadScreen
+import com.example.derdine.ui.screens.HomeScreen
+import com.example.derdine.ui.screens.LoginScreen
+import com.example.derdine.ui.screens.ProfileScreen
+import com.example.derdine.ui.screens.SearchScreen
+import com.example.derdine.ui.screens.SettingsScreen
+import com.example.derdine.ui.screens.ThreadDetailScreen
+import com.example.derdine.ui.theme.ForumTheme
 
 data class BottomNavItem(
     val route: String,
@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         
         AuthManager.init(applicationContext)
-        com.example.derdinesokayim.auth.SettingsManager.init(applicationContext)
+        com.example.derdine.auth.SettingsManager.init(applicationContext)
         
         enableEdgeToEdge()
         setContent {
