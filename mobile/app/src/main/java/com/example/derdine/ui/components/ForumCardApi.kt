@@ -91,12 +91,12 @@ fun ForumCardApi(
                             thread.author?.badge?.let { badge ->
                                 Surface(
                                     shape = RoundedCornerShape(6.dp),
-                                    color = MaterialTheme.colorScheme.primaryContainer
+                                    color = MaterialTheme.colorScheme.primary
                                 ) {
                                     Text(
                                         text = badge,
                                         style = MaterialTheme.typography.labelSmall,
-                                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                        color = MaterialTheme.colorScheme.onPrimary,
                                         modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                                     )
                                 }

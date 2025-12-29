@@ -17,7 +17,7 @@ A native Android forum application built with Kotlin and Jetpack Compose, featur
 ## Project Structure
 
 ```
-app/src/main/java/com/example/derdinesokayim/
+app/src/main/java/com/example/derdine/
 ├── MainActivity.kt          # Main activity with navigation host
 ├── api/
 │   ├── ForumApi.kt          # Retrofit API interface and data models

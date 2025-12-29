@@ -161,18 +161,18 @@ fun HomeScreen(
                                 )
                                 .padding(20.dp)
                         ) {
-                            Column {
+                        Column {
                                 Text(
                                     text = "👋 Hoş Geldiniz!",
                                     style = MaterialTheme.typography.titleLarge,
                                     fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                                    color = androidx.compose.ui.graphics.Color.White
                                 )
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
                                     text = "En son tartışmaları keşfedin ve topluluğa katılın",
                                     style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                                    color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.9f)
                                 )
                             }
                         }

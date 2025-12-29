@@ -64,12 +64,12 @@ fun ReplyCard(
                         if (reply.author.badge != null) {
                             Surface(
                                 shape = RoundedCornerShape(4.dp),
-                                color = MaterialTheme.colorScheme.primaryContainer
+                                color = MaterialTheme.colorScheme.primary
                             ) {
                                 Text(
                                     text = reply.author.badge,
                                     style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    color = MaterialTheme.colorScheme.onPrimary,
                                     modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                                 )
                             }
