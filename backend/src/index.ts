@@ -1,5 +1,6 @@
 import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
+import { swagger } from '@elysiajs/swagger';
 import connectDB from './db/connect';
 
 // Controllers
@@ -16,6 +17,27 @@ connectDB();
 
 const app = new Elysia()
     .use(cors())
+    .use(swagger({
+        documentation: {
+            info: {
+                title: 'Derdine Forum API',
+                version: '1.0.0',
+                description: 'RESTful API for Derdine Forum - A modern community discussion platform',
+            },
+            tags: [
+                { name: 'Theme', description: 'Theme configuration endpoints' },
+                { name: 'Categories', description: 'Forum category management' },
+                { name: 'Labels', description: 'UI label management' },
+                { name: 'Users', description: 'User authentication and management' },
+                { name: 'Threads', description: 'Forum thread operations' },
+                { name: 'Replies', description: 'Thread reply operations' },
+                { name: 'Admin', description: 'Admin-only operations' }
+            ]
+        },
+        scalarConfig: {
+            theme: 'purple'
+        }
+    }))
     .get('/', () => ({
         message: 'Derdine Forum API is running',
         version: '1.0.0',
