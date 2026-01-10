@@ -9,7 +9,7 @@ import { Reply } from '../models/Reply';
 // Password
 const hashPassword = async (password: string): Promise<string> => {
     const encoder = new TextEncoder();
-    const data = encoder.encode(password + (process.env.PASSWORD_SALT || 'forum_secret_salt_2024'));
+    const data = encoder.encode(password + (process.env.PASSWORD_SALT || 'forum_secret_salt_2026'));
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
@@ -62,7 +62,7 @@ export const adminController = (app: Elysia) =>
                         const hashedDemoPass = await hashPassword('demo123');
 
                         await User.insertMany([
-                            { username: 'Admin', email: 'admin@derdinesokayim.com', password: hashedAdminPass, badge: 'Admin', reputation: 9999 },
+                            { username: 'Admin', email: 'admin@derdine.com', password: hashedAdminPass, badge: 'Admin', reputation: 9999 },
                             { username: 'AhmetYılmaz', email: 'ahmet@example.com', password: hashedDemoPass, badge: 'Moderatör', reputation: 1250 },
                             { username: 'MehmetKaya', email: 'mehmet@example.com', password: hashedDemoPass, badge: 'Aktif Üye', reputation: 450 },
                             { username: 'AyşeDemir', email: 'ayse@example.com', password: hashedDemoPass, reputation: 180 },
