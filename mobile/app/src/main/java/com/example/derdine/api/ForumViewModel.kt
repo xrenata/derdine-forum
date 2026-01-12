@@ -272,12 +272,72 @@ class ForumViewModel : ViewModel() {
         }
     }
     
+    fun deleteReply(replyId: String, onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            repository.deleteReply(replyId)
+                .onSuccess {
+                    // Remove from list
+                    val updatedReplies = uiState.replies.filter { it._id != replyId }
+                    uiState = uiState.copy(replies = updatedReplies)
+                    onSuccess()
+                }
+                .onFailure { error ->
+                    uiState = uiState.copy(error = error.message)
+                }
+        }
+    }
+    
     fun clearError() {
         uiState = uiState.copy(error = null)
     }
     
     fun refresh() {
         loadInitialData()
+    }
+    
+    // Delete Thread
+    fun deleteThread(threadId: String, onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            uiState = uiState.copy(isLoading = true)
+            repository.deleteThread(threadId)
+                .onSuccess {
+                    uiState = uiState.copy(isLoading = false, error = null)
+                    // Remove from list
+                    val updatedThreads = uiState.threads.filter { it._id != threadId }
+                    uiState = uiState.copy(threads = updatedThreads)
+                    onSuccess()
+                }
+                .onFailure { error ->
+                    uiState = uiState.copy(error = error.message, isLoading = false)
+                }
+        }
+    }
+    
+    // Update Thread
+    fun updateThread(
+        threadId: String,
+        title: String,
+        content: String,
+        categoryId: String,
+        onSuccess: () -> Unit
+    ) {
+        val authorId = uiState.currentUser?._id ?: return
+        viewModelScope.launch {
+            uiState = uiState.copy(isLoading = true)
+            repository.updateThread(threadId, title, content, authorId, categoryId)
+                .onSuccess { updatedThread ->
+                    uiState = uiState.copy(isLoading = false, error = null)
+                    // Update in list
+                    val updatedThreads = uiState.threads.map { 
+                        if (it._id == threadId) updatedThread else it 
+                    }
+                    uiState = uiState.copy(threads = updatedThreads, currentThread = updatedThread)
+                    onSuccess()
+                }
+                .onFailure { error ->
+                    uiState = uiState.copy(error = error.message, isLoading = false)
+                }
+        }
     }
     
     // Create Thread

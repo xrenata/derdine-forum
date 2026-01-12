@@ -86,7 +86,7 @@ app/src/main/java/com/example/derdine/
 ```kotlin
 object ApiConfig {
     // For Android Emulator
-    const val BASE_URL = "http://10.0.2.2:3001/"
+    const val BASE_URL = "http://192.168.31.1:3001/"
     
     // For Physical Device (use your computer's IP)
     // const val BASE_URL = "http://192.168.1.x:3001/"

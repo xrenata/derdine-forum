@@ -27,9 +27,13 @@ fun ForumCardApi(
     thread: ThreadResponse,
     onClick: () -> Unit,
     onLike: () -> Unit = {},
+    onEdit: () -> Unit = {},
+    onDelete: () -> Unit = {},
+    currentUserId: String? = null,
     modifier: Modifier = Modifier
 ) {
-
+    var showMoreMenu by remember { mutableStateOf(false) }
+    val context = androidx.compose.ui.platform.LocalContext.current
     
     Card(
         modifier = modifier
@@ -52,7 +56,8 @@ fun ForumCardApi(
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.weight(1f)
                 ) {
                     // Avatar
                     Box(
@@ -77,7 +82,7 @@ fun ForumCardApi(
                         )
                     }
                     
-                    Column {
+                    Column(modifier = Modifier.weight(1f)) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(6.dp)
@@ -110,17 +115,74 @@ fun ForumCardApi(
                     }
                 }
                 
-                // Category chip
-                Surface(
-                    shape = RoundedCornerShape(12.dp),
-                    color = parseColor(thread.category.color).copy(alpha = 0.15f)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    Text(
-                        text = thread.category.name,
-                        style = MaterialTheme.typography.labelMedium,
-                        color = parseColor(thread.category.color),
-                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
-                    )
+                    // Category chip
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = parseColor(thread.category.color).copy(alpha = 0.15f)
+                    ) {
+                        Text(
+                            text = thread.category.name,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = parseColor(thread.category.color),
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+                        )
+                    }
+                    
+                    // More menu
+                    Box {
+                        IconButton(
+                            onClick = { showMoreMenu = true },
+                            modifier = Modifier.size(32.dp)
+                        ) {
+                            Icon(
+                                Icons.Default.MoreVert,
+                                contentDescription = "Daha fazla",
+                                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                        DropdownMenu(
+                            expanded = showMoreMenu,
+                            onDismissRequest = { showMoreMenu = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text("Rapor Et") },
+                                onClick = {
+                                    showMoreMenu = false
+                                    android.widget.Toast.makeText(context, "Rapor işlevi yakında eklenecek", android.widget.Toast.LENGTH_SHORT).show()
+                                },
+                                leadingIcon = {
+                                    Icon(Icons.Default.Warning, null)
+                                }
+                            )
+                            if (currentUserId == thread.author?._id) {
+                                DropdownMenuItem(
+                                    text = { Text("Düzenle") },
+                                    onClick = {
+                                        showMoreMenu = false
+                                        onEdit()
+                                    },
+                                    leadingIcon = {
+                                        Icon(Icons.Default.Edit, null)
+                                    }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text("Sil", color = MaterialTheme.colorScheme.error) },
+                                    onClick = {
+                                        showMoreMenu = false
+                                        onDelete()
+                                    },
+                                    leadingIcon = {
+                                        Icon(Icons.Default.Delete, null, tint = MaterialTheme.colorScheme.error)
+                                    }
+                                )
+                            }
+                        }
+                    }
                 }
             }
             
@@ -179,22 +241,25 @@ fun ForumCardApi(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Likes
+                    // Likes - IconButton to prevent click conflict with Card
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp),
-                        modifier = Modifier.clickable {
-                            onLike()
-                        }
+                        horizontalArrangement = Arrangement.spacedBy(0.dp)
                     ) {
-                        Icon(
-                            if (thread.isLiked) Icons.Default.Favorite else Icons.Outlined.FavoriteBorder,
-                            contentDescription = "Beğeni",
-                            tint = if (thread.isLiked) Color.Red else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                            modifier = Modifier.size(18.dp)
-                        )
+                        IconButton(
+                            onClick = { onLike() },
+                            modifier = Modifier.size(36.dp)
+                        ) {
+                            Icon(
+                                if (thread.isLiked == true) Icons.Default.Favorite else Icons.Outlined.FavoriteBorder,
+                                contentDescription = "Beğeni",
+                                tint = if (thread.isLiked == true) Color.Red else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
                         Text(
                             text = thread.likeCount.toString(),
                             style = MaterialTheme.typography.labelMedium,

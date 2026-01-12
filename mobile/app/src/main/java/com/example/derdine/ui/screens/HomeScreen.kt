@@ -32,6 +32,7 @@ fun HomeScreen(
     val uiState = viewModel.uiState
     val labels = uiState.labels?.home
     val buttonLabels = uiState.labels?.buttons
+    val context = androidx.compose.ui.platform.LocalContext.current
     
     // Refresh threads when screen is shown to sync isLiked state
     LaunchedEffect(uiState.currentUser?._id) {
@@ -215,7 +216,25 @@ fun HomeScreen(
                             },
                             onLike = {
                                 viewModel.likeThread(thread._id)
-                            }
+                            },
+                            onEdit = {
+                                // TODO: Navigate to edit screen with thread data
+                                android.widget.Toast.makeText(
+                                    context,
+                                    "Düzenleme ekranı yakında eklenecek",
+                                    android.widget.Toast.LENGTH_SHORT
+                                ).show()
+                            },
+                            onDelete = {
+                                viewModel.deleteThread(thread._id) {
+                                    android.widget.Toast.makeText(
+                                        context,
+                                        "Konu silindi",
+                                        android.widget.Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            },
+                            currentUserId = uiState.currentUser?._id
                         )
                     }
                     

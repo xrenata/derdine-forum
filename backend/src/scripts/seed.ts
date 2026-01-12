@@ -63,7 +63,7 @@ const seed = async () => {
             const hashedDemoPass = await hashPassword('demo123');
 
             await User.insertMany([
-                { username: 'Admin', email: 'admin@derdinesokayim.com', password: hashedAdminPass, badge: 'Admin', reputation: 9999 },
+                { username: 'Admin', email: 'admin@derdine.com', password: hashedAdminPass, badge: 'Admin', reputation: 9999 },
                 { username: 'AhmetYılmaz', email: 'ahmet@example.com', password: hashedDemoPass, badge: 'Moderatör', reputation: 1250 },
                 { username: 'MehmetKaya', email: 'mehmet@example.com', password: hashedDemoPass, badge: 'Aktif Üye', reputation: 450 },
                 { username: 'AyşeDemir', email: 'ayse@example.com', password: hashedDemoPass, reputation: 180 },

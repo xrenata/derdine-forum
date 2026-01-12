@@ -128,14 +128,6 @@ fun SettingsScreen(
             onClick = {
                 showChangePasswordDialog = true
             }
-        ),
-        SettingItem(
-            icon = Icons.Default.Email,
-            title = "E-posta",
-            subtitle = "E-posta ayarları",
-            onClick = {
-                android.widget.Toast.makeText(context, "E-posta ayarları yakında eklenecek!", android.widget.Toast.LENGTH_SHORT).show()
-            }
         )
     )
     

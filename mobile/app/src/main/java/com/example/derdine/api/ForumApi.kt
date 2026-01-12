@@ -8,7 +8,7 @@ import retrofit2.http.*
 import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-    const val BASE_URL = "http://10.0.2.2:3001/"
+    const val BASE_URL = "http://192.168.31.207:3001/"
 }
 
 data class ApiResponse<T>(
@@ -257,6 +257,12 @@ interface ForumApi {
     @POST("api/threads")
     suspend fun createThread(@Body request: CreateThreadRequest): ApiResponse<ThreadResponse>
     
+    @PUT("api/threads/{id}")
+    suspend fun updateThread(@Path("id") id: String, @Body request: CreateThreadRequest): ApiResponse<ThreadResponse>
+    
+    @DELETE("api/threads/{id}")
+    suspend fun deleteThread(@Path("id") id: String): ApiResponse<Unit>
+    
     @POST("api/threads/{id}/like")
     suspend fun likeThread(@Path("id") id: String, @Body request: LikeRequest): ApiResponse<LikeResponse>
     
@@ -272,6 +278,9 @@ interface ForumApi {
     
     @POST("api/replies")
     suspend fun createReply(@Body request: CreateReplyRequest): ApiResponse<ReplyResponse>
+    
+    @DELETE("api/replies/{id}")
+    suspend fun deleteReply(@Path("id") id: String): ApiResponse<Unit>
     
     @POST("api/replies/{id}/like")
     suspend fun likeReply(@Path("id") id: String, @Body request: LikeRequest): ApiResponse<LikeResponse>

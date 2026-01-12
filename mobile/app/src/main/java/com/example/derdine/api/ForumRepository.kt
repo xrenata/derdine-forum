@@ -150,6 +150,32 @@ class ForumRepository {
         }
     }
     
+    suspend fun updateThread(id: String, title: String, content: String, authorId: String, categoryId: String): Result<ThreadResponse> = withContext(Dispatchers.IO) {
+        try {
+            val response = api.updateThread(id, CreateThreadRequest(title, content, authorId, categoryId))
+            if (response.success && response.data != null) {
+                Result.success(response.data)
+            } else {
+                Result.failure(Exception(response.message ?: "Thread güncellenemedi"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+    
+    suspend fun deleteThread(id: String): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            val response = api.deleteThread(id)
+            if (response.success) {
+                Result.success(Unit)
+            } else {
+                Result.failure(Exception(response.message ?: "Thread silinemedi"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+    
     // Replies
     suspend fun getReplies(
         thread: String? = null,
@@ -177,6 +203,19 @@ class ForumRepository {
                 Result.success(response.data)
             } else {
                 Result.failure(Exception(response.message ?: "Failed to like reply"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+    
+    suspend fun deleteReply(id: String): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            val response = api.deleteReply(id)
+            if (response.success) {
+                Result.success(Unit)
+            } else {
+                Result.failure(Exception(response.message ?: "Yanıt silinemedi"))
             }
         } catch (e: Exception) {
             Result.failure(e)

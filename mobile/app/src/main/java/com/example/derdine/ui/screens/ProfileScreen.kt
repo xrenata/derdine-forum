@@ -33,6 +33,7 @@ fun ProfileScreen(
 ) {
     val uiState = viewModel.uiState
     val labels = uiState.labels?.profile
+    val context = androidx.compose.ui.platform.LocalContext.current
     
     // Get logged in user from ViewModel
     // Get logged in user from ViewModel
@@ -268,6 +269,16 @@ fun ProfileScreen(
                                         navController.navigate(Screen.ThreadDetail.createRoute(thread._id))
                                     },
                                     onLike = { viewModel.likeThread(thread._id) },
+                                    onDelete = {
+                                        viewModel.deleteThread(thread._id) {
+                                            android.widget.Toast.makeText(
+                                                context,
+                                                "Konu silindi",
+                                                android.widget.Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    },
+                                    currentUserId = uiState.currentUser?._id,
                                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
                                 )
                             }

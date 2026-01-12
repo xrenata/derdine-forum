@@ -27,6 +27,7 @@ fun SearchScreen(
 ) {
     val uiState = viewModel.uiState
     val labels = uiState.labels?.search
+    val context = androidx.compose.ui.platform.LocalContext.current
     
     var searchQuery by remember { mutableStateOf("") }
     var selectedCategoryId by remember { mutableStateOf<String?>(null) }
@@ -186,7 +187,17 @@ fun SearchScreen(
                         onClick = {
                             navController.navigate(Screen.ThreadDetail.createRoute(thread._id))
                         },
-                        onLike = { viewModel.likeThread(thread._id) }
+                        onLike = { viewModel.likeThread(thread._id) },
+                        onDelete = {
+                            viewModel.deleteThread(thread._id) {
+                                android.widget.Toast.makeText(
+                                    context,
+                                    "Konu silindi",
+                                    android.widget.Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        },
+                        currentUserId = uiState.currentUser?._id
                     )
                 }
             }

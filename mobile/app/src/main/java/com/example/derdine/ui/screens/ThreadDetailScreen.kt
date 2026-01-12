@@ -34,6 +34,8 @@ fun ThreadDetailScreen(
     val labels = uiState.labels?.thread
     
     var replyText by remember { mutableStateOf("") }
+    var showMoreMenu by remember { mutableStateOf(false) }
+    
     // Load thread and replies
     LaunchedEffect(threadId) {
         viewModel.loadThread(threadId)
@@ -41,8 +43,6 @@ fun ThreadDetailScreen(
     
     val thread = uiState.currentThread
     val replies = uiState.replies
-    
-    var isLiked by remember(thread?.isLiked) { mutableStateOf(thread?.isLiked ?: false) }
     
     val context = androidx.compose.ui.platform.LocalContext.current
     
@@ -67,8 +67,50 @@ fun ThreadDetailScreen(
                     }) {
                         Icon(Icons.Default.Share, "Paylaş")
                     }
-                    IconButton(onClick = { }) {
-                        Icon(Icons.Default.MoreVert, "Daha Fazla")
+                    Box {
+                        IconButton(onClick = { showMoreMenu = true }) {
+                            Icon(Icons.Default.MoreVert, "Daha Fazla")
+                        }
+                        DropdownMenu(
+                            expanded = showMoreMenu,
+                            onDismissRequest = { showMoreMenu = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text("Rapor Et") },
+                                onClick = {
+                                    showMoreMenu = false
+                                    android.widget.Toast.makeText(context, "Rapor işlevi yakında eklenecek", android.widget.Toast.LENGTH_SHORT).show()
+                                },
+                                leadingIcon = {
+                                    Icon(Icons.Default.Warning, null)
+                                }
+                            )
+                            if (uiState.currentUser?._id == thread?.author?._id) {
+                                DropdownMenuItem(
+                                    text = { Text("Düzenle") },
+                                    onClick = {
+                                        showMoreMenu = false
+                                        android.widget.Toast.makeText(context, "Düzenleme işlevi yakında eklenecek", android.widget.Toast.LENGTH_SHORT).show()
+                                    },
+                                    leadingIcon = {
+                                        Icon(Icons.Default.Edit, null)
+                                    }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text("Sil", color = MaterialTheme.colorScheme.error) },
+                                    onClick = {
+                                        showMoreMenu = false
+                                        viewModel.deleteThread(threadId) {
+                                            android.widget.Toast.makeText(context, "Konu silindi", android.widget.Toast.LENGTH_SHORT).show()
+                                            navController.navigateUp()
+                                        }
+                                    },
+                                    leadingIcon = {
+                                        Icon(Icons.Default.Delete, null, tint = MaterialTheme.colorScheme.error)
+                                    }
+                                )
+                            }
+                        }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -298,39 +340,36 @@ fun ThreadDetailScreen(
                                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                                         )
                                     }
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                                    ) {
-                                        Icon(
-                                            Icons.Outlined.FavoriteBorder,
-                                            null,
-                                            modifier = Modifier.size(18.dp),
-                                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                                        )
-                                        Text(
-                                            "${thread.likeCount} ${labels?.likes ?: "beğeni"}",
-                                            style = MaterialTheme.typography.labelMedium,
-                                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                                        )
-                                    }
                                 }
                                 
-                                IconButton(
-                                    onClick = {
-                                        if (uiState.currentUser == null) {
-                                            android.widget.Toast.makeText(context, "Beğenmek için giriş yapmalısınız", android.widget.Toast.LENGTH_SHORT).show()
-                                            return@IconButton
-                                        }
-                                        isLiked = !isLiked
-                                        viewModel.likeThread(thread._id)
-                                    }
+                                // Like button with count
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(0.dp)
                                 ) {
-                                   Icon(
-                                       if (isLiked) Icons.Default.Favorite else Icons.Outlined.FavoriteBorder,
-                                       "Beğen",
-                                       tint = if (isLiked) Color.Red else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                                   )
+                                    IconButton(
+                                        onClick = {
+                                            if (uiState.currentUser == null) {
+                                                android.widget.Toast.makeText(context, "Beğenmek için giriş yapmalısınız", android.widget.Toast.LENGTH_SHORT).show()
+                                                return@IconButton
+                                            }
+                                            viewModel.likeThread(thread._id)
+                                        },
+                                        modifier = Modifier.size(40.dp)
+                                    ) {
+                                       Icon(
+                                           if (thread.isLiked == true) Icons.Default.Favorite else Icons.Outlined.FavoriteBorder,
+                                           "Beğen",
+                                           tint = if (thread.isLiked == true) Color.Red else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                                           modifier = Modifier.size(22.dp)
+                                       )
+                                    }
+                                    Text(
+                                        "${thread.likeCount}",
+                                        style = MaterialTheme.typography.labelLarge,
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = if (thread.isLiked == true) Color.Red else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                                    )
                                 }
                             }
                         }
@@ -351,6 +390,11 @@ fun ThreadDetailScreen(
                         ReplyCardApi(
                             reply = reply,
                             onLike = { viewModel.likeReply(reply._id) },
+                            onDelete = {
+                                viewModel.deleteReply(reply._id) {
+                                    android.widget.Toast.makeText(context, "Yanıt silindi", android.widget.Toast.LENGTH_SHORT).show()
+                                }
+                            },
                             currentUser = uiState.currentUser
                         )
                     }
@@ -369,10 +413,11 @@ fun ThreadDetailScreen(
 fun ReplyCardApi(
     reply: ReplyResponse,
     onLike: () -> Unit,
+    onDelete: () -> Unit = {},
     currentUser: com.example.derdine.api.UserResponse?
 ) {
-    var isLiked by remember(reply.isLiked) { mutableStateOf(reply.isLiked) }
     val context = androidx.compose.ui.platform.LocalContext.current
+    var showMoreMenu by remember { mutableStateOf(false) }
     
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -386,7 +431,8 @@ fun ReplyCardApi(
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                modifier = Modifier.fillMaxWidth()
             ) {
                 UserAvatarApi(
                     user = reply.author,
@@ -404,6 +450,38 @@ fun ReplyCardApi(
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                     )
+                }
+                
+                // More menu for reply owner
+                if (currentUser?._id == reply.author?._id) {
+                    Box {
+                        IconButton(
+                            onClick = { showMoreMenu = true },
+                            modifier = Modifier.size(32.dp)
+                        ) {
+                            Icon(
+                                Icons.Default.MoreVert,
+                                contentDescription = "Daha fazla",
+                                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
+                        DropdownMenu(
+                            expanded = showMoreMenu,
+                            onDismissRequest = { showMoreMenu = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text("Sil", color = MaterialTheme.colorScheme.error) },
+                                onClick = {
+                                    showMoreMenu = false
+                                    onDelete()
+                                },
+                                leadingIcon = {
+                                    Icon(Icons.Default.Delete, null, tint = MaterialTheme.colorScheme.error)
+                                }
+                            )
+                        }
+                    }
                 }
             }
             
@@ -426,15 +504,14 @@ fun ReplyCardApi(
                             android.widget.Toast.makeText(context, "Beğenmek için giriş yapmalısınız", android.widget.Toast.LENGTH_SHORT).show()
                             return@IconButton
                         }
-                        isLiked = !isLiked
                         onLike()
                     },
                     modifier = Modifier.size(32.dp)
                 ) {
                     Icon(
-                        if (isLiked) Icons.Default.Favorite else Icons.Outlined.FavoriteBorder,
+                        if (reply.isLiked == true) Icons.Default.Favorite else Icons.Outlined.FavoriteBorder,
                         "Beğen",
-                        tint = if (isLiked) Color.Red else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                        tint = if (reply.isLiked == true) Color.Red else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                         modifier = Modifier.size(18.dp)
                     )
                 }
